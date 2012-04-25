@@ -1,24 +1,30 @@
 #include "view.h"
 
 #include <QtGui/QGridLayout>
-#include <QtGui/QTextEdit>
-#include <QtGui/QSplitter>
-
+#include <QtGui/QDockWidget>
+#include <QtGui/QMenuBar>
 #include <QtSvg/QSvgWidget>
+
+#include <Qsci/qsciscintilla.h>
 
 View::View(QWidget *parent) :
   QMainWindow(parent)
 {
   setWindowTitle("non-graphical Svg Editor");
 
+  QMenuBar *Menu = new QMenuBar(this);
+  QMenu *FileMenu = Menu->addMenu(tr("File"));
+  FileMenu->addAction(tr("Exit"), this, SLOT(close()));
+  setMenuBar(Menu);
+
   _svg      = new QSvgWidget();
-  _textEdit = new QTextEdit();
+  _textEdit = new QsciScintilla();
+  QDockWidget *SvgView = new QDockWidget(tr("preview"), this);
+  SvgView->setWidget(_svg);
 
-  _splitter = new QSplitter(Qt::Horizontal);
-  setCentralWidget(_splitter);
+  setCentralWidget(_textEdit);
 
-  _splitter->addWidget(_svg);
-  _splitter->addWidget(_textEdit);
+  addDockWidget(Qt::RightDockWidgetArea, SvgView);
 
   connect(_textEdit,  SIGNAL(textChanged()),
           this,       SLOT(updateSvg()));
@@ -26,5 +32,5 @@ View::View(QWidget *parent) :
 
 void View::updateSvg()
 {
-  _svg->load(_textEdit->toPlainText().toUtf8());
+  _svg->load(_textEdit->text().toUtf8());
 }

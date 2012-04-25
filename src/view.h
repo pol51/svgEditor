@@ -5,8 +5,7 @@
 
 class QGridLayout;
 class QSvgWidget;
-class QTextEdit;
-class QSplitter;
+class QsciScintilla;
 
 class View : public QMainWindow
 {
@@ -22,8 +21,7 @@ class View : public QMainWindow
     QWidget       *_centralW;
     QGridLayout   *_layout;
     QSvgWidget    *_svg;
-    QTextEdit     *_textEdit;
-    QSplitter     *_splitter;
+    QsciScintilla *_textEdit;
 };
 
 #endif
