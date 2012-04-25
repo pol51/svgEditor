@@ -3,8 +3,8 @@
 
 #include <QtGui/QMainWindow>
 
-class QGridLayout;
 class QSvgWidget;
+class QLabel;
 class QsciScintilla;
 
 class View : public QMainWindow
@@ -16,10 +16,11 @@ class View : public QMainWindow
 
   protected slots:
     void updateSvg();
+    void updateStatus(int line, int col);
 
   protected:
     QWidget       *_centralW;
-    QGridLayout   *_layout;
+    QLabel        *_status;
     QSvgWidget    *_svg;
     QsciScintilla *_textEdit;
 };
