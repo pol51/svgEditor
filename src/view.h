@@ -18,11 +18,16 @@ class View : public QMainWindow
     void updateSvg();
     void updateStatus(int line, int col);
 
+    void open();
+    void save();
+    void saveAs();
+
   protected:
     QWidget       *_centralW;
     QLabel        *_status;
     QSvgWidget    *_svg;
     QsciScintilla *_textEdit;
+    QString       _filename;
 };
 
 #endif
